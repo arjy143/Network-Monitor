@@ -20,6 +20,7 @@ find_library(PCAP_LIB pcap REQUIRED)
 # -----------------------------------------
 add_executable(network-monitor
     src/main.cpp
+    src/ui.cpp
 )
 
 # -----------------------------------------
