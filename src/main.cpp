@@ -31,7 +31,22 @@ int main(int argc, char** argv)
 
     pcap_freealldevs(all_devs);
 
-    ui.print_center(device_list.c_str());
+    int height = 10;
+    int width = 20;
+    int start_y = 10;
+    int start_x = 10;
+
+    WINDOW* win = newwin(height, width, start_y, start_x);
+    //refresh to let application know new window exists
+    refresh();
+
+    //put content before boxing
+    wprintw(win, "%s", device_list.c_str());
+
+    box(win, 0,0);
+    wrefresh(win);
+
+    //ui.print_center(device_list.c_str());
     ui.refresh();
     ui.wait_for_key();
 
