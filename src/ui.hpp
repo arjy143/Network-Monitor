@@ -2,10 +2,10 @@
  * ui.hpp - Terminal UI utilities using ncurses
  *
  * Provides a wrapper around ncurses for terminal-based UI rendering.
- * Handles initialization, color setup, non-blocking input, and common
- * drawing utilities like centering text and formatting byte counts.
+ * Handles initialisation, colour setup, non-blocking input, and common
+ * drawing utilities like centring text and formatting byte counts.
  *
- * Color pairs are defined for different protocol types (TCP, UDP, etc.)
+ * Colour pairs are defined for different protocol types (TCP, UDP, etc.)
  * to provide visual distinction in the packet list and other views.
  */
 
@@ -14,7 +14,7 @@
 #include <ncurses.h>
 #include <string>
 
-// Color pair IDs
+// Colour pair IDs
 enum ColorPair {
     COLOR_DEFAULT = 0,
     COLOR_HEADER = 1,
@@ -42,7 +42,7 @@ public:
     int get_max_y() const;
     int get_max_x() const;
 
-    // Color support
+    // Colour support
     bool has_colors() const { return has_colors_; }
     void set_color(WINDOW* win, ColorPair pair);
     void unset_color(WINDOW* win, ColorPair pair);

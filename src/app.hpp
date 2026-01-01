@@ -1,7 +1,7 @@
 /*
  * app.hpp - Main application controller
  *
- * Orchestrates all components of the network monitor: UI initialization,
+ * Orchestrates all components of the network monitor: UI initialisation,
  * window layout, packet capture, and the main event loop. Owns the PacketStore,
  * PacketCapture, Sidebar, and all Panel instances.
  *

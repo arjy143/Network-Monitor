@@ -1,9 +1,9 @@
 /*
  * ui.cpp - ncurses UI wrapper implementation
  *
- * Provides terminal UI functionality including color initialization,
+ * Provides terminal UI functionality including colour initialisation,
  * non-blocking input handling, and utility functions for drawing
- * boxes, centering text, and formatting numbers.
+ * boxes, centring text, and formatting numbers.
  */
 
 #include "ui.hpp"
@@ -21,7 +21,7 @@ void UI::init() {
     // Enable non-blocking input with 100ms timeout
     timeout(100);
 
-    // Initialize colors if available
+    // Initialise colours if available
     init_colors();
 }
 
@@ -31,7 +31,7 @@ void UI::init_colors() {
         use_default_colors();
         has_colors_ = true;
 
-        // Define color pairs
+        // Define colour pairs
         init_pair(COLOR_HEADER, COLOR_BLACK, COLOR_CYAN);
         init_pair(COLOR_SELECTED, COLOR_BLACK, COLOR_WHITE);
         init_pair(COLOR_TCP, COLOR_CYAN, -1);

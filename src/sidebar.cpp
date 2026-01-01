@@ -86,7 +86,7 @@ void Sidebar::render(WINDOW* win) {
         mvwprintw(win, max_y - 2, max_x - 2, "v");
     }
 
-    // Draw box (active state indicated by color)
+    // Draw box (active state indicated by colour)
     UI::draw_box(win, active_);
 
     wrefresh(win);

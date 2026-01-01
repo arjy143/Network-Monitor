@@ -110,7 +110,7 @@ void StatsPanel::render_protocol_breakdown(WINDOW* win, int& y, int width,
     for (const auto& [proto, count] : sorted_protos) {
         double percentage = total > 0 ? (static_cast<double>(count) / total) * 100.0 : 0.0;
 
-        // Get color for protocol
+        // Get colour for protocol
         ColorPair color = COLOR_OTHER;
         if (proto == "TCP") color = COLOR_TCP;
         else if (proto == "UDP") color = COLOR_UDP;

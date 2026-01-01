@@ -1,7 +1,7 @@
 /*
  * packet_list.cpp - Live packet list implementation
  *
- * Renders the packet table with color-coded protocols. Handles scrolling,
+ * Renders the packet table with colour-coded protocols. Handles scrolling,
  * packet selection, and auto-scroll mode. The Info column now shows
  * hostnames extracted from DNS, HTTP, and TLS when available.
  */
@@ -103,7 +103,7 @@ void PacketListPanel::render_packet_row(WINDOW* win, int y, int width,
     std::string dst = pkt.dst_ip.empty() ? pkt.format_mac(pkt.dst_mac) : pkt.dst_ip;
     mvwprintw(win, y, 33, "%-18s", UI::truncate(dst, 17).c_str());
 
-    // Protocol with color
+    // Protocol with colour
     ColorPair color = get_protocol_color(pkt);
     ui_.set_color(win, color);
     mvwprintw(win, y, 52, "%-6s", pkt.protocol_name().c_str());

@@ -2,7 +2,7 @@
  * graph.cpp - Traffic graph implementation
  *
  * Renders an ASCII bar chart showing traffic rates over time.
- * Uses block characters for the bars with color coding based on
+ * Uses block characters for the bars with colour coding based on
  * traffic intensity. Y-axis auto-scales to the maximum value.
  */
 
@@ -148,7 +148,7 @@ void GraphPanel::render_graph(WINDOW* win, int start_y, int height, int width,
 
         int x = graph_x + static_cast<int>(i);
 
-        // Choose color based on value intensity
+        // Choose colour based on value intensity
         ColorPair color = COLOR_UDP;
         if (val > max_val * 0.75) {
             color = COLOR_ERROR;
