@@ -1,3 +1,11 @@
+/*
+ * packet_store.cpp - Thread-safe packet storage implementation
+ *
+ * Implements the circular buffer and statistics tracking for captured packets.
+ * All public methods are mutex-protected to allow concurrent access from the
+ * capture thread (writing) and UI thread (reading).
+ */
+
 #include "packet_store.hpp"
 #include <algorithm>
 

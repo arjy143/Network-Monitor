@@ -12,6 +12,10 @@ A terminal UI application for seeing your network's traffic at a glance. Built u
   - **F4 - Detail**: Full packet inspection with parsed headers and hex dump
 - **Interface sidebar** - Browse and select network interfaces
 - **Protocol parsing** - Ethernet, IPv4, IPv6, TCP, UDP, ICMP, ARP
+- **Hostname/URL extraction**:
+  - **DNS**: Shows queried domain names (e.g., "google.com Query A")
+  - **HTTP**: Extracts Host header and request path from unencrypted traffic
+  - **TLS/HTTPS**: Extracts Server Name Indication (SNI) from Client Hello
 - **Color-coded protocols** - Easy visual identification of traffic types
 
 ## Building

@@ -1,3 +1,15 @@
+/*
+ * sidebar.hpp - Network interface selector widget
+ *
+ * Displays a navigable list of available network interfaces in the left
+ * sidebar. Users can scroll through interfaces with arrow keys and select
+ * one with Enter to start capturing. Shows interface status (up/down) and
+ * supports refreshing the interface list.
+ *
+ * The sidebar callback is invoked when an interface is selected, triggering
+ * the App to start packet capture on that interface.
+ */
+
 #pragma once
 
 #include "capture.hpp"

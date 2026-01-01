@@ -1,3 +1,13 @@
+/*
+ * detail.hpp - Packet detail panel (F4)
+ *
+ * Shows detailed information about the currently selected packet.
+ * Three view modes available:
+ * - Parsed: Shows parsed header fields (Ethernet, IP, TCP/UDP)
+ * - Hex: Traditional hex dump with offset, hex bytes, and ASCII
+ * - ASCII: Raw ASCII view of packet data
+ */
+
 #pragma once
 
 #include "../panel.hpp"

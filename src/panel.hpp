@@ -1,3 +1,14 @@
+/*
+ * panel.hpp - Base class for UI panels
+ *
+ * Abstract base class that all main content panels inherit from (PacketList,
+ * Stats, Graph, Detail). Provides common interface for rendering, keyboard
+ * handling, and active state management. Each panel has access to the shared
+ * PacketStore for reading captured packet data.
+ *
+ * Panels are displayed in the main window area and switched via F1-F4 keys.
+ */
+
 #pragma once
 
 #include "packet_store.hpp"

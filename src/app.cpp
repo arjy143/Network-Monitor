@@ -1,3 +1,11 @@
+/*
+ * app.cpp - Main application controller implementation
+ *
+ * Implements the main event loop, window layout management, and coordination
+ * between all components. The run() method polls for input, updates stats,
+ * and renders the UI at approximately 10 FPS (100ms timeout).
+ */
+
 #include "app.hpp"
 #include "panels/detail.hpp"
 #include "panels/graph.hpp"

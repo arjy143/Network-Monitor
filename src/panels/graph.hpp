@@ -1,3 +1,11 @@
+/*
+ * graph.hpp - Traffic graph panel (F3)
+ *
+ * Displays an ASCII bar chart of network traffic over time. Shows either
+ * packets per second or bytes per second (toggle with 'b' key). The graph
+ * scrolls horizontally to show the last 60 seconds of data.
+ */
+
 #pragma once
 
 #include "../panel.hpp"

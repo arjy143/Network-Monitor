@@ -1,3 +1,10 @@
+/*
+ * stats.cpp - Statistics panel implementation
+ *
+ * Displays capture statistics including packet counts, byte totals,
+ * current rates, and a sorted protocol breakdown with visual bars.
+ */
+
 #include "stats.hpp"
 #include <algorithm>
 #include <iomanip>

@@ -1,3 +1,11 @@
+/*
+ * packet_list.cpp - Live packet list implementation
+ *
+ * Renders the packet table with color-coded protocols. Handles scrolling,
+ * packet selection, and auto-scroll mode. The Info column now shows
+ * hostnames extracted from DNS, HTTP, and TLS when available.
+ */
+
 #include "packet_list.hpp"
 #include <iomanip>
 #include <sstream>

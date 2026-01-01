@@ -1,3 +1,14 @@
+/*
+ * ui.hpp - Terminal UI utilities using ncurses
+ *
+ * Provides a wrapper around ncurses for terminal-based UI rendering.
+ * Handles initialization, color setup, non-blocking input, and common
+ * drawing utilities like centering text and formatting byte counts.
+ *
+ * Color pairs are defined for different protocol types (TCP, UDP, etc.)
+ * to provide visual distinction in the packet list and other views.
+ */
+
 #pragma once
 
 #include <ncurses.h>

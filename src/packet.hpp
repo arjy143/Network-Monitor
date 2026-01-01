@@ -1,3 +1,15 @@
+/*
+ * packet.hpp - Network packet data structures and parsing
+ *
+ * Defines the PacketInfo structure that holds parsed packet data and the
+ * protocol header structures used for parsing raw packet bytes. Supports
+ * Ethernet, IPv4, IPv6, TCP, UDP, ICMP, ARP, DNS, HTTP, and TLS protocols.
+ *
+ * The parse_packet() function converts raw captured bytes into a structured
+ * PacketInfo object that the rest of the application can use for display
+ * and analysis.
+ */
+
 #pragma once
 
 #include <array>
@@ -25,6 +37,11 @@ constexpr uint8_t TCP_PSH = 0x08;
 constexpr uint8_t TCP_ACK = 0x10;
 constexpr uint8_t TCP_URG = 0x20;
 
+// Well-known ports
+constexpr uint16_t PORT_DNS = 53;
+constexpr uint16_t PORT_HTTP = 80;
+constexpr uint16_t PORT_HTTPS = 443;
+
 struct PacketInfo {
     std::chrono::system_clock::time_point timestamp;
     uint32_t length;
@@ -46,6 +63,11 @@ struct PacketInfo {
     uint16_t src_port;
     uint16_t dst_port;
     uint8_t tcp_flags;
+
+    // Application layer - extracted hostnames/URLs
+    std::string hostname;      // DNS query name, HTTP Host, or TLS SNI
+    std::string app_protocol;  // "DNS", "HTTP", "TLS", etc.
+    std::string app_info;      // Additional info (HTTP method, DNS type, etc.)
 
     // Raw data for inspection
     std::vector<uint8_t> raw_data;
@@ -120,7 +142,22 @@ struct ARPHeader {
     uint8_t target_ip[4];
 };
 
+struct DNSHeader {
+    uint16_t id;
+    uint16_t flags;
+    uint16_t qdcount;  // Number of questions
+    uint16_t ancount;  // Number of answers
+    uint16_t nscount;  // Number of authority records
+    uint16_t arcount;  // Number of additional records
+};
+
 #pragma pack(pop)
+
+// Application layer parsing functions
+std::string parse_dns_name(const uint8_t* data, size_t len, size_t& offset);
+void parse_dns_query(PacketInfo& info, const uint8_t* data, size_t len);
+void parse_http_request(PacketInfo& info, const uint8_t* data, size_t len);
+void parse_tls_client_hello(PacketInfo& info, const uint8_t* data, size_t len);
 
 // Parse a raw packet into PacketInfo
 PacketInfo parse_packet(const uint8_t* data, uint32_t caplen, uint32_t len);

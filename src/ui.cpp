@@ -1,3 +1,11 @@
+/*
+ * ui.cpp - ncurses UI wrapper implementation
+ *
+ * Provides terminal UI functionality including color initialization,
+ * non-blocking input handling, and utility functions for drawing
+ * boxes, centering text, and formatting numbers.
+ */
+
 #include "ui.hpp"
 #include <cstring>
 #include <iomanip>

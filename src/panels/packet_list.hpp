@@ -1,3 +1,12 @@
+/*
+ * packet_list.hpp - Live packet list panel (F1)
+ *
+ * Displays a scrolling table of captured packets with columns for
+ * timestamp, source, destination, protocol, length, and info/hostname.
+ * Supports auto-scroll to follow new packets, manual scrolling, and
+ * selecting packets for detailed inspection in the Detail panel.
+ */
+
 #pragma once
 
 #include "../panel.hpp"

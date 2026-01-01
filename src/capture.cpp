@@ -1,3 +1,11 @@
+/*
+ * capture.cpp - libpcap-based packet capture implementation
+ *
+ * Handles opening network interfaces, running the capture loop in a background
+ * thread, and parsing captured packets. Uses pcap_dispatch() with a callback
+ * that pushes parsed packets to the PacketStore.
+ */
+
 #include "capture.hpp"
 #include <arpa/inet.h>
 #include <cstring>

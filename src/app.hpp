@@ -1,3 +1,15 @@
+/*
+ * app.hpp - Main application controller
+ *
+ * Orchestrates all components of the network monitor: UI initialization,
+ * window layout, packet capture, and the main event loop. Owns the PacketStore,
+ * PacketCapture, Sidebar, and all Panel instances.
+ *
+ * The event loop polls for keyboard input (non-blocking), updates statistics,
+ * and renders all UI components. Handles global keys (F1-F4 panel switching,
+ * Tab for focus, q to quit) and delegates other keys to the focused component.
+ */
+
 #pragma once
 
 #include "capture.hpp"

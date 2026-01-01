@@ -1,3 +1,13 @@
+/*
+ * detail.cpp - Packet detail panel implementation
+ *
+ * Renders detailed packet information in three modes:
+ * - Parsed: Human-readable header fields
+ * - Hex: Traditional hexdump format
+ * - ASCII: Printable character view
+ * All modes support scrolling for large packets.
+ */
+
 #include "detail.hpp"
 #include <iomanip>
 #include <sstream>

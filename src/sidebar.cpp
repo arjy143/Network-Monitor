@@ -1,3 +1,11 @@
+/*
+ * sidebar.cpp - Network interface selector implementation
+ *
+ * Renders the interface list with keyboard navigation (up/down arrows,
+ * Enter to select). Enumerates interfaces via PacketCapture::get_all_interfaces()
+ * and displays their status.
+ */
+
 #include "sidebar.hpp"
 #include <algorithm>
 

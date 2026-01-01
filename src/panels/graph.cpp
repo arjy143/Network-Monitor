@@ -1,3 +1,11 @@
+/*
+ * graph.cpp - Traffic graph implementation
+ *
+ * Renders an ASCII bar chart showing traffic rates over time.
+ * Uses block characters for the bars with color coding based on
+ * traffic intensity. Y-axis auto-scales to the maximum value.
+ */
+
 #include "graph.hpp"
 #include <algorithm>
 #include <cmath>

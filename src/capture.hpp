@@ -1,3 +1,15 @@
+/*
+ * capture.hpp - Network packet capture using libpcap
+ *
+ * Wraps libpcap functionality for capturing packets from network interfaces.
+ * Runs packet capture in a background thread, parsing each packet and pushing
+ * it to the PacketStore for display. Supports interface enumeration, starting/
+ * stopping capture, and graceful thread shutdown.
+ *
+ * Usage: Create a PacketCapture with a PacketStore reference, call open() with
+ * an interface name, then start() to begin capturing. Call stop() to end.
+ */
+
 #pragma once
 
 #include "packet_store.hpp"

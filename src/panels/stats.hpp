@@ -1,3 +1,11 @@
+/*
+ * stats.hpp - Statistics panel (F2)
+ *
+ * Shows aggregate statistics for the current capture session including
+ * total packets, total bytes, current throughput (packets/sec, bytes/sec),
+ * and a protocol breakdown with visual bar charts.
+ */
+
 #pragma once
 
 #include "../panel.hpp"

@@ -1,3 +1,15 @@
+/*
+ * packet_store.hpp - Thread-safe packet storage and statistics
+ *
+ * Provides a thread-safe circular buffer for storing captured packets,
+ * along with real-time statistics tracking (packets/sec, bytes/sec,
+ * protocol breakdown). Uses mutex protection to allow the capture
+ * thread to push packets while the UI thread reads them safely.
+ *
+ * The store maintains a history of traffic rates for graphing purposes
+ * and tracks which packet is currently selected for detail viewing.
+ */
+
 #pragma once
 
 #include "packet.hpp"
