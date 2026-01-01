@@ -284,7 +284,7 @@ bool DetailPanel::handle_key(int key) {
 
         case KEY_DOWN:
         case 'j':
-            if (scroll_offset_ < total_lines - 1) {
+            if (total_lines > 0 && scroll_offset_ < total_lines - 1) {
                 scroll_offset_++;
             }
             return true;

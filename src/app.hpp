@@ -71,7 +71,7 @@ private:
     Focus focus_ = Focus::SIDEBAR;
     std::string error_message_;
     std::chrono::steady_clock::time_point last_rate_update_;
-    std::chrono::steady_clock::time_point last_alert_time_;
+    std::chrono::steady_clock::time_point last_alert_time_{};
     bool process_enabled_ = false;
 
     // Event handling
