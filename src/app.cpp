@@ -4,9 +4,12 @@
  * Implements the main event loop, window layout management, and coordination
  * between all components. The run() method polls for input, updates stats,
  * and renders the UI at approximately 10 FPS (100ms timeout).
+ *
+ * Loads description database and watchlist on startup, integrates alerts.
  */
 
 #include "app.hpp"
+#include "config.hpp"
 #include "panels/detail.hpp"
 #include "panels/graph.hpp"
 #include "panels/packet_list.hpp"
@@ -31,14 +34,23 @@ App::~App() {
 bool App::init() {
     ui_.init();
 
-    // Create panels
-    panels_[0] = std::make_unique<PacketListPanel>(store_, ui_);
+    // Load description database
+    descriptions_.load_default();
+
+    // Load watchlist and configure logging
+    watchlist_.load_default();
+    watchlist_.set_log_file(Config::get_config_path("alerts.log"));
+
+    // Create panels with descriptions database
+    panels_[0] = std::make_unique<PacketListPanel>(store_, ui_, &descriptions_);
     panels_[1] = std::make_unique<StatsPanel>(store_, ui_);
     panels_[2] = std::make_unique<GraphPanel>(store_, ui_);
     panels_[3] = std::make_unique<DetailPanel>(store_, ui_);
 
-    // Create capture handler
+    // Create capture handler and configure integrations
     capture_ = std::make_unique<PacketCapture>(store_);
+    capture_->set_watchlist(&watchlist_);
+    capture_->set_process_mapper(&process_mapper_);
 
     // Create windows
     create_windows();
@@ -174,6 +186,15 @@ void App::handle_key(int key) {
             // Stop capture
             stop_capture();
             return;
+
+        case 'p':
+        case 'P':
+            // Toggle process attribution
+            process_enabled_ = !process_enabled_;
+            if (capture_) {
+                capture_->set_process_enabled(process_enabled_);
+            }
+            return;
     }
 
     // Pass to focused component
@@ -235,29 +256,69 @@ void App::render_status_bar() {
 
     int max_x = getmaxx(status_bar_);
 
-    // Left side: capture status
+    // Left side: capture status + process indicator
+    int left_x = 2;
     if (capture_ && capture_->is_running()) {
         ui_.set_color(status_bar_, COLOR_UDP);
-        mvwprintw(status_bar_, 1, 2, "[CAPTURING: %s]",
+        mvwprintw(status_bar_, 1, left_x, "[CAPTURING: %s]",
                   capture_->get_interface_name().c_str());
         ui_.unset_color(status_bar_, COLOR_UDP);
+        left_x += 14 + static_cast<int>(capture_->get_interface_name().length());
+
+        // Process indicator
+        if (process_enabled_) {
+            ui_.set_color(status_bar_, COLOR_PROCESS);
+            mvwprintw(status_bar_, 1, left_x, " [PROC]");
+            ui_.unset_color(status_bar_, COLOR_PROCESS);
+        }
     } else {
-        mvwprintw(status_bar_, 1, 2, "[STOPPED] Select interface and press Enter");
+        mvwprintw(status_bar_, 1, left_x, "[STOPPED] Select interface and press Enter");
     }
 
-    // Center: packet count
-    InterfaceStats stats = store_.get_stats();
-    std::ostringstream oss;
-    oss << stats.packets_received << " packets | "
-        << UI::format_bytes(stats.bytes_received);
-    std::string stats_str = oss.str();
-    mvwprintw(status_bar_, 1, (max_x - static_cast<int>(stats_str.length())) / 2,
-              "%s", stats_str.c_str());
+    // Center: packet count or alert
+    auto now = std::chrono::steady_clock::now();
+    bool show_alert = false;
+    std::string alert_text;
+
+    // Check for new alerts
+    if (watchlist_.has_new_alerts()) {
+        last_alert_time_ = now;
+    }
+
+    // Show alert for 5 seconds after it occurred
+    auto alert_elapsed = std::chrono::duration_cast<std::chrono::seconds>(
+        now - last_alert_time_).count();
+
+    if (alert_elapsed < 5) {
+        auto latest = watchlist_.get_latest_alert();
+        if (latest) {
+            show_alert = true;
+            alert_text = "ALERT: " + latest->format_short();
+        }
+    }
+
+    if (show_alert) {
+        // Show alert with red background
+        ui_.set_color(status_bar_, COLOR_ALERT);
+        int alert_x = (max_x - static_cast<int>(alert_text.length())) / 2;
+        if (alert_x < left_x + 10) alert_x = left_x + 10;
+        mvwprintw(status_bar_, 1, alert_x, " %s ", alert_text.c_str());
+        ui_.unset_color(status_bar_, COLOR_ALERT);
+    } else {
+        // Show packet count
+        InterfaceStats stats = store_.get_stats();
+        std::ostringstream oss;
+        oss << stats.packets_received << " packets | "
+            << UI::format_bytes(stats.bytes_received);
+        std::string stats_str = oss.str();
+        mvwprintw(status_bar_, 1, (max_x - static_cast<int>(stats_str.length())) / 2,
+                  "%s", stats_str.c_str());
+    }
 
     // Right side: help
-    mvwprintw(status_bar_, 1, max_x - 26, "Tab:Focus  s:Stop  q:Quit");
+    mvwprintw(status_bar_, 1, max_x - 31, "Tab:Focus P:Proc s:Stop q:Quit");
 
-    // Error message if any
+    // Error message if any (overrides center display)
     if (!error_message_.empty()) {
         ui_.set_color(status_bar_, COLOR_ERROR);
         mvwprintw(status_bar_, 1, max_x / 2 - static_cast<int>(error_message_.length()) / 2,

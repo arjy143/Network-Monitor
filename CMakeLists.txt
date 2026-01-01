@@ -30,6 +30,10 @@ add_executable(network-monitor
     src/packet_store.cpp
     src/panel.cpp
     src/sidebar.cpp
+    src/config.cpp
+    src/descriptions.cpp
+    src/watchlist.cpp
+    src/process_mapper.cpp
     src/panels/packet_list.cpp
     src/panels/stats.cpp
     src/panels/graph.cpp

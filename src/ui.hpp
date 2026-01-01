@@ -26,7 +26,10 @@ enum ColorPair {
     COLOR_OTHER = 7,
     COLOR_STATUS = 8,
     COLOR_ACTIVE_BORDER = 9,
-    COLOR_ERROR = 10
+    COLOR_ERROR = 10,
+    COLOR_ALERT = 11,       // Alert highlight (white on red)
+    COLOR_ALERT_TEXT = 12,  // Alert text in status bar (red on default)
+    COLOR_PROCESS = 13      // Process attribution indicator
 };
 
 class UI {

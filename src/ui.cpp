@@ -42,6 +42,9 @@ void UI::init_colors() {
         init_pair(COLOR_STATUS, COLOR_WHITE, COLOR_BLUE);
         init_pair(COLOR_ACTIVE_BORDER, COLOR_GREEN, -1);
         init_pair(COLOR_ERROR, COLOR_RED, -1);
+        init_pair(COLOR_ALERT, COLOR_WHITE, COLOR_RED);
+        init_pair(COLOR_ALERT_TEXT, COLOR_RED, -1);
+        init_pair(COLOR_PROCESS, COLOR_CYAN, -1);
     }
 }
 

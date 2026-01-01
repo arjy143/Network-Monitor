@@ -2,7 +2,7 @@
  * packet_list.hpp - Live packet list panel (F1)
  *
  * Displays a scrolling table of captured packets with columns for
- * timestamp, source, destination, protocol, length, and info/hostname.
+ * timestamp, source, destination, protocol, length, category, and info.
  * Supports auto-scroll to follow new packets, manual scrolling, and
  * selecting packets for detailed inspection in the Detail panel.
  */
@@ -11,9 +11,12 @@
 
 #include "../panel.hpp"
 
+// Forward declaration
+class DescriptionDatabase;
+
 class PacketListPanel : public Panel {
 public:
-    PacketListPanel(PacketStore& store, UI& ui);
+    PacketListPanel(PacketStore& store, UI& ui, DescriptionDatabase* descriptions = nullptr);
 
     void render(WINDOW* win) override;
     bool handle_key(int key) override;
@@ -22,11 +25,16 @@ public:
     void set_auto_scroll(bool enabled) { auto_scroll_ = enabled; }
     bool is_auto_scroll() const { return auto_scroll_; }
 
+    // Set description database for category lookups
+    void set_descriptions(DescriptionDatabase* db) { descriptions_ = db; }
+
 private:
     bool auto_scroll_ = true;
     size_t selected_row_ = 0;
+    DescriptionDatabase* descriptions_ = nullptr;
 
     void render_header(WINDOW* win, int y, int width);
     void render_packet_row(WINDOW* win, int y, int width, const PacketInfo& pkt, bool selected);
     ColorPair get_protocol_color(const PacketInfo& pkt) const;
+    std::string get_category(const PacketInfo& pkt) const;
 };

@@ -4,9 +4,13 @@
  * Handles opening network interfaces, running the capture loop in a background
  * thread, and parsing captured packets. Uses pcap_dispatch() with a callback
  * that pushes parsed packets to the PacketStore.
+ *
+ * Optionally checks packets against a Watchlist and performs process attribution.
  */
 
 #include "capture.hpp"
+#include "process_mapper.hpp"
+#include "watchlist.hpp"
 #include <arpa/inet.h>
 #include <cstring>
 
@@ -167,6 +171,42 @@ void PacketCapture::packet_callback(u_char* user,
 
     // Parse the packet
     PacketInfo info = parse_packet(data, header->caplen, header->len);
+
+    // Check against watchlist if configured
+    if (self->watchlist_) {
+        auto match = self->watchlist_->check(info);
+        if (match) {
+            info.watchlist_match = true;
+            info.watchlist_label = match->label;
+
+            // Create and log alert
+            Alert alert;
+            alert.timestamp = std::chrono::system_clock::now();
+            alert.matched_value = info.hostname.empty()
+                                      ? (info.dst_ip.empty() ? info.src_ip : info.dst_ip)
+                                      : info.hostname;
+            alert.pattern = match->pattern;
+            alert.label = match->label;
+            alert.packet_index = self->store_.size();
+
+            self->watchlist_->add_alert(alert);
+        }
+    }
+
+    // Process attribution when enabled
+    if (self->process_enabled_.load() && self->process_mapper_) {
+        auto proc = self->process_mapper_->lookup_packet(
+            info.src_ip,
+            info.src_port,
+            info.dst_ip,
+            info.dst_port,
+            info.protocol
+        );
+        if (proc) {
+            info.process_name = proc->name;
+            info.process_pid = proc->pid;
+        }
+    }
 
     // Push to store (thread-safe)
     self->store_.push(std::move(info));

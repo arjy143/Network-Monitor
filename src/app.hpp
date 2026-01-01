@@ -5,6 +5,9 @@
  * window layout, packet capture, and the main event loop. Owns the PacketStore,
  * PacketCapture, Sidebar, and all Panel instances.
  *
+ * Also manages the DescriptionDatabase for traffic categorisation and
+ * Watchlist for alert monitoring.
+ *
  * The event loop polls for keyboard input (non-blocking), updates statistics,
  * and renders all UI components. Handles global keys (F1-F4 panel switching,
  * Tab for focus, q to quit) and delegates other keys to the focused component.
@@ -13,10 +16,13 @@
 #pragma once
 
 #include "capture.hpp"
+#include "descriptions.hpp"
 #include "packet_store.hpp"
 #include "panel.hpp"
+#include "process_mapper.hpp"
 #include "sidebar.hpp"
 #include "ui.hpp"
+#include "watchlist.hpp"
 #include <array>
 #include <chrono>
 #include <memory>
@@ -45,6 +51,11 @@ private:
     std::unique_ptr<PacketCapture> capture_;
     Sidebar sidebar_;
 
+    // Configuration databases
+    DescriptionDatabase descriptions_;
+    Watchlist watchlist_;
+    ProcessMapper process_mapper_;
+
     // Panels
     std::array<std::unique_ptr<Panel>, 4> panels_;
     size_t active_panel_ = 0;
@@ -60,6 +71,8 @@ private:
     Focus focus_ = Focus::SIDEBAR;
     std::string error_message_;
     std::chrono::steady_clock::time_point last_rate_update_;
+    std::chrono::steady_clock::time_point last_alert_time_;
+    bool process_enabled_ = false;
 
     // Event handling
     void handle_key(int key);

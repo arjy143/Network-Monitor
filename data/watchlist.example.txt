@@ -1,0 +1,30 @@
+# Network Monitor - Watchlist Configuration
+# Format: TYPE:PATTERN:LABEL
+#
+# Match Types:
+#   exact    - Exact hostname match
+#   wildcard - Glob pattern (*.example.com)
+#   regex    - Regular expression
+#   ip       - Exact IP address match
+#   cidr     - Network range (10.0.0.0/8)
+#
+# Copy this file to ~/.config/network-monitor/watchlist.txt and customize
+
+# Example entries (uncomment to use):
+
+# Track specific domains
+#exact:malware.example.com:Known Malware Domain
+#wildcard:*.tracking.example.com:Tracking Service
+#wildcard:*.telemetry.*:Telemetry
+
+# Track specific IPs
+#ip:192.168.1.1:Router
+#ip:8.8.8.8:Google DNS
+
+# Track network ranges
+#cidr:10.0.0.0/8:Internal Network
+#cidr:192.168.0.0/16:Private Network
+
+# Use regex for complex patterns
+#regex:.*\.ru$:Russian Domain
+#regex:.*telemetry.*:Telemetry Traffic

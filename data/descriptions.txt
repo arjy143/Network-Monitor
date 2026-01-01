@@ -1,0 +1,166 @@
+# Network Monitor - Traffic Descriptions Database
+# Format: PATTERN:CATEGORY:DESCRIPTION
+# Pattern types:
+#   - Exact match: example.com
+#   - Wildcard: *.example.com
+#   - Regex (starts with ^): ^.*\.example\.com$
+
+# Certificate Authorities / OCSP
+ocsp.digicert.com:Certificate:DigiCert OCSP validation
+*.digicert.com:Certificate:DigiCert services
+ocsp.pki.goog:Certificate:Google OCSP validation
+*.pki.goog:Certificate:Google PKI services
+ocsp.letsencrypt.org:Certificate:Let's Encrypt OCSP
+*.letsencrypt.org:Certificate:Let's Encrypt
+crl.microsoft.com:Certificate:Microsoft CRL
+*.verisign.com:Certificate:VeriSign
+*.symantec.com:Certificate:Symantec certificates
+*.globalsign.com:Certificate:GlobalSign certificates
+*.comodoca.com:Certificate:Comodo CA
+*.usertrust.com:Certificate:UserTrust CA
+*.entrust.net:Certificate:Entrust certificates
+
+# Google Services
+*.google.com:Google:Google Services
+*.googleapis.com:Google:Google APIs
+*.gstatic.com:Google:Google Static Content
+*.googleusercontent.com:Google:Google User Content
+*.googlevideo.com:Google:Google/YouTube Video
+*.youtube.com:Google:YouTube
+*.ytimg.com:Google:YouTube Images
+*.ggpht.com:Google:Google Photos
+*.google-analytics.com:Analytics:Google Analytics
+*.googleadservices.com:Advertising:Google Ads
+*.doubleclick.net:Advertising:Google DoubleClick
+*.googlesyndication.com:Advertising:Google Ads
+
+# Microsoft Services
+*.microsoft.com:Microsoft:Microsoft Services
+*.microsoftonline.com:Microsoft:Microsoft 365 Online
+*.office.com:Microsoft:Microsoft Office
+*.office365.com:Microsoft:Microsoft 365
+*.live.com:Microsoft:Microsoft Live
+*.azure.com:Microsoft:Microsoft Azure
+*.msn.com:Microsoft:MSN
+*.bing.com:Microsoft:Bing Search
+*.windows.com:Microsoft:Windows Services
+*.windowsupdate.com:Microsoft:Windows Update
+*.msftconnecttest.com:Microsoft:Connectivity Test
+*.msauth.net:Microsoft:Microsoft Auth
+*.msftauth.net:Microsoft:Microsoft Auth
+*.sfx.ms:Microsoft:Microsoft CDN
+
+# Apple Services
+*.apple.com:Apple:Apple Services
+*.icloud.com:Apple:iCloud
+*.mzstatic.com:Apple:Apple Static Content
+*.cdn-apple.com:Apple:Apple CDN
+*.push.apple.com:Apple:Apple Push Notifications
+
+# Amazon Web Services
+*.amazonaws.com:AWS:Amazon Web Services
+*.cloudfront.net:AWS:CloudFront CDN
+*.amazon.com:Amazon:Amazon
+*.aws.amazon.com:AWS:AWS Console
+
+# Meta/Facebook
+*.facebook.com:Social:Facebook
+*.fbcdn.net:Social:Facebook CDN
+*.fb.com:Social:Facebook
+*.instagram.com:Social:Instagram
+*.cdninstagram.com:Social:Instagram CDN
+*.whatsapp.com:Social:WhatsApp
+*.whatsapp.net:Social:WhatsApp
+
+# Twitter/X
+*.twitter.com:Social:Twitter/X
+*.twimg.com:Social:Twitter Images
+*.t.co:Social:Twitter Links
+*.x.com:Social:X
+
+# Streaming Services
+*.netflix.com:Streaming:Netflix
+*.nflxvideo.net:Streaming:Netflix Video
+*.spotify.com:Streaming:Spotify
+*.scdn.co:Streaming:Spotify CDN
+*.twitch.tv:Streaming:Twitch
+*.ttvnw.net:Streaming:Twitch CDN
+*.hulu.com:Streaming:Hulu
+*.disneyplus.com:Streaming:Disney+
+*.primevideo.com:Streaming:Prime Video
+
+# CDN Providers
+*.akamai.net:CDN:Akamai
+*.akamaized.net:CDN:Akamai
+*.akadns.net:CDN:Akamai DNS
+*.akamaiedge.net:CDN:Akamai Edge
+*.edgekey.net:CDN:Akamai EdgeKey
+*.cloudflare.com:CDN:Cloudflare
+*.cloudflare-dns.com:CDN:Cloudflare DNS
+*.fastly.net:CDN:Fastly
+*.fastlylb.net:CDN:Fastly
+
+# Development & Code Hosting
+*.github.com:Development:GitHub
+*.githubusercontent.com:Development:GitHub Content
+*.github.io:Development:GitHub Pages
+*.gitlab.com:Development:GitLab
+*.bitbucket.org:Development:Bitbucket
+*.npmjs.com:Development:npm Registry
+*.npmjs.org:Development:npm Registry
+*.pypi.org:Development:Python Package Index
+*.rubygems.org:Development:Ruby Gems
+*.crates.io:Development:Rust Crates
+
+# Analytics & Telemetry
+*.google-analytics.com:Analytics:Google Analytics
+*.googletagmanager.com:Analytics:Google Tag Manager
+*.hotjar.com:Analytics:Hotjar
+*.mixpanel.com:Analytics:Mixpanel
+*.segment.com:Analytics:Segment
+*.amplitude.com:Analytics:Amplitude
+*.newrelic.com:Analytics:New Relic
+*.sentry.io:Analytics:Sentry Error Tracking
+*.bugsnag.com:Analytics:Bugsnag
+
+# Advertising
+*.googleads.g.doubleclick.net:Advertising:Google Ads
+*.pagead2.googlesyndication.com:Advertising:Google Ads
+*.adservice.google.com:Advertising:Google Ads
+*.ads.facebook.com:Advertising:Facebook Ads
+*.adsymptotic.com:Advertising:Ad Network
+*.adnxs.com:Advertising:AppNexus
+*.criteo.com:Advertising:Criteo
+*.taboola.com:Advertising:Taboola
+
+# Communication & Collaboration
+*.slack.com:Communication:Slack
+*.slack-edge.com:Communication:Slack CDN
+*.zoom.us:Communication:Zoom
+*.zoomgov.com:Communication:Zoom Gov
+*.teams.microsoft.com:Communication:Microsoft Teams
+*.discordapp.com:Communication:Discord
+*.discord.com:Communication:Discord
+*.discord.gg:Communication:Discord
+
+# Security Services
+*.kaspersky.com:Security:Kaspersky
+*.avast.com:Security:Avast
+*.norton.com:Security:Norton
+*.mcafee.com:Security:McAfee
+*.virustotal.com:Security:VirusTotal
+*.malwarebytes.com:Security:Malwarebytes
+
+# DNS Providers
+dns.google:DNS:Google DNS
+*.dns.google:DNS:Google DNS
+cloudflare-dns.com:DNS:Cloudflare DNS
+*.cloudflare-dns.com:DNS:Cloudflare DNS
+dns.quad9.net:DNS:Quad9 DNS
+dns.adguard.com:DNS:AdGuard DNS
+
+# Time Servers
+time.google.com:NTP:Google Time
+time.windows.com:NTP:Windows Time
+time.apple.com:NTP:Apple Time
+pool.ntp.org:NTP:NTP Pool

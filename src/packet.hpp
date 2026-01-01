@@ -69,6 +69,18 @@ struct PacketInfo {
     std::string app_protocol;  // "DNS", "HTTP", "TLS", etc.
     std::string app_info;      // Additional info (HTTP method, DNS type, etc.)
 
+    // Description lookup results (populated during rendering)
+    std::string category;      // e.g., "Google", "Microsoft", "Telemetry"
+    std::string description;   // e.g., "Google Services", "Certificate validation"
+
+    // Watchlist match info
+    bool watchlist_match = false;   // True if packet matched a watchlist entry
+    std::string watchlist_label;    // Label from matched watchlist entry
+
+    // Process attribution (Linux only)
+    std::string process_name;  // e.g., "firefox", "chrome", "curl"
+    int32_t process_pid = 0;   // PID if known, 0 otherwise
+
     // Raw data for inspection
     std::vector<uint8_t> raw_data;
 

@@ -6,6 +6,9 @@
  * it to the PacketStore for display. Supports interface enumeration, starting/
  * stopping capture, and graceful thread shutdown.
  *
+ * Optionally integrates with Watchlist for real-time alert checking and
+ * ProcessMapper for process attribution.
+ *
  * Usage: Create a PacketCapture with a PacketStore reference, call open() with
  * an interface name, then start() to begin capturing. Call stop() to end.
  */
@@ -20,6 +23,10 @@
 #include <string>
 #include <thread>
 #include <vector>
+
+// Forward declarations
+class Watchlist;
+class ProcessMapper;
 
 struct NetworkInterface {
     std::string name;
@@ -53,6 +60,12 @@ public:
     std::string get_error() const { return error_; }
     std::string get_interface_name() const { return interface_name_; }
 
+    // Optional integrations
+    void set_watchlist(Watchlist* wl) { watchlist_ = wl; }
+    void set_process_mapper(ProcessMapper* pm) { process_mapper_ = pm; }
+    void set_process_enabled(bool enabled) { process_enabled_.store(enabled); }
+    bool is_process_enabled() const { return process_enabled_.load(); }
+
 private:
     void capture_loop();
     static void packet_callback(u_char* user, const struct pcap_pkthdr* header,
@@ -65,4 +78,9 @@ private:
 
     std::atomic<bool> running_{false};
     std::thread capture_thread_;
+
+    // Optional integrations
+    Watchlist* watchlist_ = nullptr;
+    ProcessMapper* process_mapper_ = nullptr;
+    std::atomic<bool> process_enabled_{false};
 };
