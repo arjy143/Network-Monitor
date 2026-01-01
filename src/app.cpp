@@ -247,7 +247,7 @@ void App::render_status_bar() {
               "%s", stats_str.c_str());
 
     // Right side: help
-    mvwprintw(status_bar_, 1, max_x - 25, "Tab:Focus  s:Stop  q:Quit");
+    mvwprintw(status_bar_, 1, max_x - 26, "Tab:Focus  s:Stop  q:Quit");
 
     // Error message if any
     if (!error_message_.empty()) {
