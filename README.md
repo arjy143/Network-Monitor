@@ -2,6 +2,7 @@
 
 A terminal UI application for seeing your network's traffic at a glance. Built using C++20, ncurses, and libpcap.
 
+![alt text](image-1.png)
 ## Features
 
 - **Real-time packet capture** - Live monitoring of network traffic on any interface
