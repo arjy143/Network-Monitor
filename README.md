@@ -128,6 +128,36 @@ sudo setcap cap_net_raw,cap_net_admin=eip ./build/network-monitor
 | h | Hex dump view |
 | a | ASCII view |
 
+## Testing
+
+The project includes a unit test suite using the lightweight [attest.h](testing/attest.h) single-header testing framework.
+
+### Running Tests
+
+```bash
+cd testing
+g++ -std=c++20 -I../src tests.cpp ../src/packet.cpp ../src/config.cpp \
+    ../src/descriptions.cpp ../src/watchlist.cpp -o test_runner -lpthread
+./test_runner
+```
+
+### Test Options
+
+| Option | Description |
+|--------|-------------|
+| `--list` | List all registered tests without running them |
+| `--filter="pattern"` | Run only tests containing the pattern |
+| `--json` | Output results in JSON format (useful for CI) |
+| `--quiet` | Only show failures |
+
+### Examples
+
+```bash
+./test_runner --filter=cidr     # Run only CIDR-related tests
+./test_runner --json            # JSON output for CI pipelines
+./test_runner --list            # List all 54 tests
+```
+
 ## Project Structure
 
 ```
